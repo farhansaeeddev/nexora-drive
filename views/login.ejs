@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in | Nexora Drive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (
+        savedTheme === "dark" ||
+        (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+  </head>
+  <body
+    class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
+    <button
+      type="button"
+      data-theme-toggle
+      onclick="toggleTheme()"
+      class="fixed right-4 top-4 z-20 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm dark:border-slate-800 dark:bg-slate-900"
+      aria-label="Toggle color theme">
+      🌙
+    </button>
+
+    <div class="grid min-h-screen lg:grid-cols-2">
+      <section
+        class="relative hidden overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-slate-950 p-12 text-white lg:flex lg:flex-col lg:justify-between">
+        <div class="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-2xl"></div>
+        <div class="relative">
+          <div class="mb-10 flex items-center gap-3">
+            <span
+              class="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 text-lg font-bold shadow-sm">
+              N
+            </span>
+            <span class="text-lg font-semibold">Nexora Drive</span>
+          </div>
+          <h1 class="max-w-md text-4xl font-semibold leading-tight">
+            Welcome back. Your files are where you left them.
+          </h1>
+          <p class="mt-4 max-w-sm text-sm text-indigo-100">
+            Star what matters, trash what does not, and download anything with one click.
+          </p>
+        </div>
+        <p class="relative text-sm text-indigo-100">Personal storage. No cloud account required.</p>
+      </section>
+
+      <section class="flex items-center justify-center px-4 py-16 sm:px-8">
+        <div class="w-full max-w-md">
+          <div class="mb-8 lg:hidden">
+            <p class="text-sm font-semibold text-indigo-600 dark:text-indigo-300">Nexora Drive</p>
+          </div>
+          <h2 class="text-3xl font-semibold tracking-tight">Log in</h2>
+          <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            Use the email and password from your account.
+          </p>
+
+          <% if (notice) { %>
+          <p class="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">
+            <%= notice %>
+          </p>
+          <% } %>
+          <% if (error) { %>
+          <p class="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
+            <%= error %>
+          </p>
+          <% } %>
+
+          <form action="/user/login" method="POST" class="mt-8 space-y-4">
+            <div>
+              <label for="email" class="mb-1.5 block text-sm font-medium">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="you@example.com"
+                class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900" />
+            </div>
+
+            <div>
+              <div class="mb-1.5 flex items-center justify-between">
+                <label for="password" class="text-sm font-medium">Password</label>
+                <button
+                  id="toggle-password"
+                  type="button"
+                  onclick="togglePassword()"
+                  class="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-300">
+                  Show
+                </button>
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                minlength="8"
+                placeholder="Your password"
+                class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-900" />
+            </div>
+
+            <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+              <input
+                id="remember"
+                name="remember"
+                type="checkbox"
+                class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+              Remember me for 30 days
+            </label>
+
+            <button
+              type="submit"
+              class="w-full rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500">
+              Log in
+            </button>
+          </form>
+
+          <p class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
+            Need an account?
+            <a href="/user/register" class="font-semibold text-indigo-600 hover:underline dark:text-indigo-300">
+              Create one
+            </a>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      function togglePassword() {
+        const input = document.getElementById("password");
+        const button = document.getElementById("toggle-password");
+        const showing = input.type === "text";
+        input.type = showing ? "password" : "text";
+        button.textContent = showing ? "Show" : "Hide";
+      }
+
+      function toggleTheme() {
+        const root = document.documentElement;
+        root.classList.toggle("dark");
+        localStorage.setItem("theme", root.classList.contains("dark") ? "dark" : "light");
+        syncThemeButton();
+      }
+
+      function syncThemeButton() {
+        const dark = document.documentElement.classList.contains("dark");
+        document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+          button.textContent = dark ? "☀️" : "🌙";
+        });
+      }
+
+      syncThemeButton();
+    </script>
+  </body>
+</html>
