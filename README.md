@@ -1,76 +1,101 @@
 # Nexora Drive — A Personal Cloud Storage App
 
-A small personal drive: sign up, upload files to your computer, then star, trash, restore, or download them.
-
-<!-- add screenshot here -->
+A personal cloud-drive-style web application that allows users to register, log in, upload, download, and manage their files through a simple and user-friendly interface.
 
 ## Features
 
-- Account registration and login with a JWT stored in an httpOnly cookie
-- Upload files into a local `uploads` folder
-- Download a file under its original name
+- User registration and login
+- JWT authentication using httpOnly cookies
+- Remember Me functionality
+- Upload files using Multer
+- Store uploaded files in a local `uploads` folder
+- Download files with their original filenames
 - Star and unstar files
-- Move a file to trash, restore it, or delete it forever
+- Move files to Trash
+- Restore files or permanently delete them
 - Client-side search by file name
-- Dark mode that stays on as you move between pages
+- Recent files section
+- Dark mode with theme persistence
 
-## Tech stack
+## Tech Stack
 
-- Node.js and Express
-- EJS templates
-- MongoDB and Mongoose
-- JWT and bcrypt
-- Multer for local uploads
-- Tailwind CSS from a CDN, plus plain JavaScript
+- **Backend:** Node.js, Express.js
+- **Frontend:** EJS, HTML, Tailwind CSS, JavaScript
+- **Database:** MongoDB, Mongoose
+- **Authentication:** JWT, bcrypt
+- **File Uploads:** Multer
 
 ## Prerequisites
 
+Make sure you have the following installed:
+
 - Node.js 18 or newer
-- MongoDB running locally, or a MongoDB connection string you can use
+- npm
+- MongoDB (local installation or connection string)
 
 ## Installation
 
+### 1. Clone the Repository
+
 ```bash
-git clone <your-repo-url>
-cd DERIVE
+git clone https://github.com/YOUR_USERNAME/nexora-drive.git
+```
+
+### 2. Navigate to the Project Directory
+
+```bash
+cd nexora-drive
+```
+
+### 3. Install Dependencies
+
+```bash
 npm install
 ```
 
-Create a `.env` file in the project folder:
+### 4. Configure Environment Variables
+
+Create a `.env` file in the root directory and add the following:
 
 ```env
 MONGO_URI=mongodb://127.0.0.1:27017/nexora-drive
-JWT_SECRET=replace-this-with-a-long-random-string
+JWT_SECRET=your_long_random_secret
 PORT=3000
 ```
 
-Create the folder Multer writes into, then start the app:
+### 5. Create the Uploads Folder
 
 ```bash
 mkdir uploads
+```
+
+### 6. Start the Application
+
+```bash
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open your browser and visit:
+
+http://localhost:3000
 
 ## Usage
 
-1. Create an account at `/user/register`.
-2. Log in at `/user/login`. Check **Remember me** if the cookie should last 30 days.
-3. On **My Drive**, choose a file and click **Upload**.
-4. Download it, star it, or move it to trash.
-5. Open **Starred**, **Recent**, or **Trash** from the sidebar.
-6. From Trash, restore a file or delete it forever.
-7. Use the search box to filter the list you are looking at.
-8. Use the moon/sun button to switch theme. Log out when you are done.
+1. Create a new account at `/user/register`.
+2. Log in at `/user/login`.
+3. Select **Remember Me** to keep your login session for up to 30 days.
+4. Open **My Drive** and select a file to upload.
+5. Download, star, or move your uploaded files to Trash.
+6. Open **Starred**, **Recent**, or **Trash** from the sidebar.
+7. Restore files from Trash or permanently delete them.
+8. Use the search box to find files by name.
+9. Switch between Light Mode and Dark Mode using the theme button.
+10. Log out when you finish.
 
-## Project structure
+## Project Structure
 
 ```text
-DERIVE/
-├── app.js
-├── package.json
-├── .env
+nexora-drive/
 ├── config/
 │   └── db.js
 ├── middleware/
@@ -86,22 +111,39 @@ DERIVE/
 │   ├── register.ejs
 │   ├── login.ejs
 │   └── home.ejs
-└── uploads/
+├── uploads/
+├── app.js
+├── package.json
+├── package-lock.json
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
-## Roadmap
+## Storage Information
 
-- Optional cloud storage, instead of only the local `uploads` folder
-- Sharing a file with another person
-- Folders
-- File versions
+Currently, Nexora Drive uses local file storage through Multer. Uploaded files are saved in the project's `uploads` directory, while MongoDB stores their related information.
 
-<!-- add screenshot here -->
+Cloud storage integration is not included yet.
+
+## Future Improvements
+
+- Cloud storage integration (AWS S3 or Cloudinary)
+- File sharing between users
+- Folder creation and management
+- File version history
+- File preview functionality
 
 ## License
 
-MIT
+This project is licensed under the MIT License.
+
+## MIT License
+
+Copyright (c) 2026 Farhan Saeed
 
 ## Author
 
-Farhan Saeed
+**Farhan Saeed**
+
+GitHub: https://github.com/farhansaeeddev
